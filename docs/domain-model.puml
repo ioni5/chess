@@ -1,0 +1,45 @@
+@startuml domain-model
+
+Chess *--> Board
+Chess *--> "2" Player
+Chess *--> Turn
+
+Turn --> "2" Player
+
+Player <|-- Blacks
+Player <|-- Whites
+
+Board *--> "64" Position
+Board *--> "32" Piece
+Position o--> Piece
+
+Piece --> Color
+Piece <|-- King
+Piece <|-- Queen
+Piece <|-- Rook
+Piece <|-- Bishop
+Piece <|-- Knight
+Piece <|-- Pawn
+
+Piece *--> MoveRuler
+Player --> Color
+
+Player --> "1" King
+Player --> "1" Queen
+Player --> "2" Rook
+Player --> "2" Bishop
+Player --> "2" Knight
+Player --> "8" Pawn
+
+Color <|-- Black
+Color <|-- White
+
+Player ..> Movement
+Movement --> Piece
+Movement --> Position
+Movement --> MoveRuler
+
+Movement <|-- Checkmate
+Player *--> Goal
+Goal <|-- Checkmate
+@enduml
