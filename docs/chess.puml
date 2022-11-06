@@ -1,0 +1,68 @@
+@startuml chess
+
+class Chess {
+    + start():void
+    + {static} main()
+}
+
+Chess *--> Board
+Chess *--> Player
+Chess *--> Turn
+
+Turn "- players[2]" --> Player
+
+class Turn {
+    + next():Player
+}
+
+Player --> Board
+Player --> Color
+
+class Player {
+    + play():void
+}
+
+Player ..> Coordinate
+
+class Board {
+    + isValidMove(Color, Coordinate, Coordinate):boolean
+    + move(Coordinate, Coordinate):void
+    + isClearpath(Coordinate[]):boolean
+}
+
+Board ..> Coordinate
+Board ..> Color
+Board *--> "squares[8][8]" Square
+Square --> Piece
+Piece --> Color
+Piece ..> Coordinate
+
+abstract class Piece {
+    # {abstract} isValidMove(Coordinate, Coordinate, boolean clearpath):boolean
+}
+
+Piece <|-- Pawn
+Piece <|-- Knight
+Piece <|-- King
+
+Enum Color {
+    BLACK
+    WHITE
+}
+
+class Coordinate {
+    + horizontalDistance(Coordinate):int
+    + verticalDistance(Coordinate):int
+    + direction(Coordinate):Direction
+    + path(Coordinate):Coordinate[]
+}
+Coordinate --> Direction
+enum Direction {
+    HORIZONTAL
+    VERTICAL
+    DIAGONAL
+    INVERSE
+    NONE
+}
+
+@enduml

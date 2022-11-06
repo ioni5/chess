@@ -9,9 +9,10 @@ Turn --> "2" Player
 Player <|-- Blacks
 Player <|-- Whites
 
-Board *--> "64" Position
+Board *--> "64" Square
+Square o--> Piece
+Square --> Position
 Board *--> "32" Piece
-Position o--> Piece
 
 Piece --> Color
 Piece <|-- King
