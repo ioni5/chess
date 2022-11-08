@@ -8,25 +8,18 @@ public class Board {
     
     public Board() {
         pieces = new Piece[DIMENSION][DIMENSION];
-        pieces[0][0] = new Rook(Color.BLACK);
-        pieces[0][1] = new Knight(Color.BLACK);
-        pieces[0][2] = new Bishop(Color.BLACK);
-        pieces[0][4] = new King(Color.BLACK);
-        pieces[0][5] = new Bishop(Color.BLACK);
-        pieces[0][6] = new Knight(Color.BLACK);
-        pieces[0][7] = new Rook(Color.BLACK);
-        for (int i = 0; i < DIMENSION; i++) {
-            pieces[1][i] = new Pawn(Color.BLACK);
-        }
-        pieces[7][0] = new Rook(Color.WHITE);
-        pieces[7][1] = new Knight(Color.WHITE);
-        pieces[7][2] = new Bishop(Color.WHITE);
-        pieces[7][4] = new King(Color.WHITE);
-        pieces[7][5] = new Bishop(Color.WHITE);
-        pieces[7][6] = new Knight(Color.WHITE);
-        pieces[7][7] = new Rook(Color.WHITE);
-        for (int i = 0; i < DIMENSION; i++) {
-            pieces[6][i] = new Pawn(Color.WHITE);
+        for (int i = 0; i < 2; i++) {
+            Color color = i == 0 ? Color.BLACK : Color.WHITE;
+            for (int j = 0; j < 2; j++) {
+                pieces[0 + i * 7][0 + j * 7] = new Rook(color);
+                pieces[0 + i * 7][1 + j * 5] = new Knight(color);
+                pieces[0 + i * 7][2 + j * 3] = new Bishop(color);
+            }
+            pieces[0 + i * 7][3] = new Queen(color);
+            pieces[0 + i * 7][4] = new King(color);
+            for (int j = 0; j < DIMENSION; j++) {
+                pieces[1 + i * 5][j] = new Pawn(color);
+            }
         }
     }
 
