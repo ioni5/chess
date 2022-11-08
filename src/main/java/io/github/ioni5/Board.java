@@ -9,13 +9,17 @@ public class Board {
     public Board() {
         pieces = new Piece[DIMENSION][DIMENSION];
         pieces[0][1] = new Knight(Color.BLACK);
+        pieces[0][2] = new Bishop(Color.BLACK);
         pieces[0][4] = new King(Color.BLACK);
+        pieces[0][5] = new Bishop(Color.BLACK);
         pieces[0][6] = new Knight(Color.BLACK);
         for (int i = 0; i < DIMENSION; i++) {
             pieces[1][i] = new Pawn(Color.BLACK);
         }
         pieces[7][1] = new Knight(Color.WHITE);
+        pieces[7][2] = new Bishop(Color.WHITE);
         pieces[7][4] = new King(Color.WHITE);
+        pieces[7][5] = new Bishop(Color.WHITE);
         pieces[7][6] = new Knight(Color.WHITE);
         for (int i = 0; i < DIMENSION; i++) {
             pieces[6][i] = new Pawn(Color.WHITE);
