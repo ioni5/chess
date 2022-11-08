@@ -41,17 +41,9 @@ public class Board {
     public boolean isValidMove(Color color, Coordinate from, Coordinate to) {
         assert color != null && from != null && to != null;
         Console console = new Console();
-        if (this.isEmpty(from)) {
-            console.write("\nThere is no piece to move.");
-            return false;
-        }
         Piece piece = this.get(from);
         if (!piece.isColor(color)) {
             console.write("\nThis piece is not yours.");
-            return false;
-        }
-        if (from.equals(to)) {
-            console.write("\nYou can't move to the same position.");
             return false;
         }
         if (!this.isEmpty(to) && this.get(to).isColor(color)) {
@@ -90,7 +82,7 @@ public class Board {
         this.set(to, piece);
     }
 
-    private boolean isEmpty(Coordinate coordinate) {
+    public boolean isEmpty(Coordinate coordinate) {
         assert coordinate != null;
         return pieces[coordinate.getRow() - 1][coordinate.getColumn() - 1] == null;
     }

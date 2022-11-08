@@ -13,23 +13,13 @@ public class Player {
 
     public void play() {
         new Console().write("\nPlay " + color.name());
-        Coordinate from;
-        Coordinate to;
-        boolean error;
+        Movement movement;
+        boolean error = false;
         do {
-            from = this.obtainCoordinate("\nFrom what position? ");
-            to = this.obtainCoordinate("\nTo what position? ");
-            error = !board.isValidMove(color, from, to);
+            movement = new Movement(color, board);
+            error = !movement.isValid();
         } while (error);
-        board.move(from, to);
-    }
-
-    private Coordinate obtainCoordinate(String message) {
-        Console console = new Console();
-        console.write(message);
-        Coordinate coordinate = new Coordinate();
-        coordinate.obtain(new Intervale(1, Board.DIMENSION));
-        return coordinate;
+        movement.execute();
     }
 
     public String getName() {
