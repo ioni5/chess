@@ -2,19 +2,16 @@ package io.github.ioni5;
 
 public class Movement {
 
-    private Board board;
-
     private Color color;
 
-    private Coordinate from;
+    private Coordinate origin;
 
-    private Coordinate to;
+    private Coordinate target;
 
-    public Movement(Color color, Board board) {
+    public Movement(Color color) {
         this.color = color;
-        this.board = board;
-        from = new Coordinate();
-        to = new Coordinate();
+        origin = new Coordinate();
+        target = new Coordinate();
         this.obtainCoordinates();
     }
 
@@ -22,26 +19,20 @@ public class Movement {
         Intervale LIMIT = new Intervale(1, Board.DIMENSION);
         Console console = new Console();
         console.write("\nFrom what position? ");
-        from.obtain(LIMIT);
+        origin.obtain(LIMIT);
         console.write("\nTo what position? ");
-        to.obtain(LIMIT);
+        target.obtain(LIMIT);
     }
 
-    public boolean isValid() {
-        Console console = new Console();
-        if (board.isEmpty(from)) {
-            console.write("\nThere is no piece to move.");
-            return false;
-        }
-        if (from.equals(to)) {
-            console.write("\nYou can't move to the same position.");
-            return false;
-        }
-        return board.isValidMove(color, from, to);
+    public Coordinate getOrigin() {
+        return origin;
     }
 
-    public void execute() {
-        board.move(from, to);
+    public Coordinate getTarget() {
+        return target;
     }
 
+    public Color getColor() {
+        return color;
+    }
 }

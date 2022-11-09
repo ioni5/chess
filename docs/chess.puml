@@ -21,12 +21,7 @@ Player --> Movement
 
 Movement --> Coordinate
 Movement --> Color
-Movement --> Board
 
-class Movement {
-    + isValid():boolean
-    + execute():void
-}
 
 class Player {
     + play():void
@@ -34,20 +29,18 @@ class Player {
 
 
 class Board {
-    + isValidMove(Color, Coordinate, Coordinate):boolean
-    + move(Coordinate, Coordinate):void
-    + isClearpath(Coordinate[]):boolean
+    + isValidMove(Movement):boolean
+    + execute(Movement):void
     + isCheckmate():boolean
 }
 
-Board ..> Coordinate
-Board ..> Color
 Board *--> Piece
+Board --> Movement
 Piece --> Color
-Piece ..> Coordinate
+Piece --> Movement
 
 abstract class Piece {
-    # {abstract} isValidMove(Coordinate, Coordinate, boolean clearpath):boolean
+    # {abstract} isValidMove(Movement, boolean clearpath):boolean
 }
 
 Piece <|-- Pawn

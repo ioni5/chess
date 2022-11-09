@@ -38,23 +38,26 @@ public class Board {
         }
     }
 
-    public boolean isValidMove(Color color, Coordinate from, Coordinate to) {
-        assert color != null && from != null && to != null;
+    public boolean isValid(Movement movement) {
+        assert movement != null;
         Console console = new Console();
-        Piece piece = this.get(from);
+        Coordinate origin = movement.getOrigin();
+        Coordinate target = movement.getTarget();
+        Color color = movement.getColor();
+        Piece piece = this.get(origin);
         if (!piece.isColor(color)) {
             console.write("\nThis piece is not yours.");
             return false;
         }
-        if (!this.isEmpty(to) && this.get(to).isColor(color)) {
+        if (!this.isEmpty(target) && this.get(target).isColor(color)) {
             console.write("\nPosition occupied by one of your pieces.");
             return false;
         }
         boolean isClearpath = false;
-        if (from.direction(to) != Direction.NONE) {
-            isClearpath = this.isClearpath(from.path(to));
+        if (origin.direction(target) != Direction.NONE) {
+            isClearpath = this.isClearpath(origin.path(target));
         }
-        if (!piece.isValidMove(from, to, isClearpath)) {
+        if (!piece.isValidMove(movement, isClearpath)) {
             console.write("\nInvalid movement.");
             return false;
         }
@@ -74,12 +77,13 @@ public class Board {
         return true;
     }
 
-    public void move(Coordinate from, Coordinate to) {
-        assert from != null && to != null;
-        assert !this.isEmpty(from);
-        Piece piece = this.get(from);
-        this.remove(from);
-        this.set(to, piece);
+    public void execute(Movement movement) {
+        assert movement != null;
+        Coordinate origin = movement.getOrigin();
+        Coordinate target = movement.getTarget();
+        Piece piece = this.get(origin);
+        this.remove(origin);
+        this.set(target, piece);
     }
 
     public boolean isEmpty(Coordinate coordinate) {

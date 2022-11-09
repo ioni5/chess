@@ -16,10 +16,10 @@ public class Player {
         Movement movement;
         boolean error = false;
         do {
-            movement = new Movement(color, board);
-            error = !movement.isValid();
+            movement = new Movement(color);
+            error = !board.isValid(movement);
         } while (error);
-        movement.execute();
+        board.execute(movement);
     }
 
     public String getName() {
