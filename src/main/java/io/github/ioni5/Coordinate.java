@@ -27,8 +27,8 @@ public class Coordinate {
                 console.write("\nEnter value between [1-8].");
             }
         } while (error);
-        this.row = row;
-        this.column = column;
+        this.row = row - 1;
+        this.column = column - 1;
     }
 
     public int getRow() {

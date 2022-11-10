@@ -15,7 +15,7 @@ public abstract class Piece {
         return this.color == color;
     }
 
-    public abstract boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath, boolean isClearTarget);
+    public abstract boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget);
 
     public void show() {
         Console console = new Console();
