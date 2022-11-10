@@ -39,6 +39,8 @@ Square --> Piece
 
 class Square {
     + isValidMove(Movement, boolean isClearpath):boolean
+    + isValidToTake(Color):boolean
+    + isValidToPut(Color):boolean
     + hasPiece():boolean
     + hasPiece(Color):boolean
     + hasKing():boolean

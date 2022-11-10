@@ -25,10 +25,6 @@ public class Square {
         return piece.isColor(color);
     }
 
-    public boolean isValidMove(Movement movement, boolean isClearpath) {
-        return piece.isValidMove(movement, isClearpath);
-    }
-
     public Piece get() {
         return piece;
     }
@@ -40,6 +36,40 @@ public class Square {
     public boolean hasKing() {
         assert this.hasPiece();
         return piece.isKing();
+    }
+
+    public boolean isValidMove(Movement movement, boolean isClearpath) {
+        assert movement != null;
+        Console console = new Console();
+        if (!piece.isValidMove(movement, isClearpath)) {
+            console.write("\nInvalid movement.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isValidToTake(Color color) {
+        assert color != null;
+        Console console = new Console();
+        if (!this.hasPiece()) {
+            console.write("\nThere is no piece to move.");
+            return false;
+        }
+        if (!this.hasColor(color)) {
+            console.write("\nThis piece is not yours.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isValidToPut(Color color) {
+        assert color != null;
+        Console console = new Console();
+        if (this.hasPiece() && !this.hasColor(color)) {
+            console.write("\nPosition occupied by one of your pieces.");
+            return false;
+        }
+        return true;
     }
 
 }

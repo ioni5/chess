@@ -18,10 +18,17 @@ public class Movement {
     public void obtainCoordinates() {
         Intervale LIMIT = new Intervale(1, Board.DIMENSION);
         Console console = new Console();
-        console.write("\nFrom what position? ");
-        origin.obtain(LIMIT);
-        console.write("\nTo what position? ");
-        target.obtain(LIMIT);
+        boolean error = false;
+        do {
+            console.write("\nFrom what position? ");
+            origin.obtain(LIMIT);
+            console.write("\nTo what position? ");
+            target.obtain(LIMIT);
+            error = origin.equals(target);
+            if (error) {
+                console.write("\nYou can't move to the same position.");
+            }
+        } while (error);
     }
 
     public Coordinate getOrigin() {

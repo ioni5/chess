@@ -41,37 +41,16 @@ public class Board {
 
     public boolean isValid(Movement movement) {
         assert movement != null;
-        Console console = new Console();
         Coordinate origin = movement.getOrigin();
         Coordinate target = movement.getTarget();
-        Color color = movement.getColor();
         Square originSquare = this.getSquare(origin);
         Square targetSquare = this.getSquare(target);
-        if (!originSquare.hasPiece()) {
-            console.write("\nThere is no piece to move.");
+        Color color = movement.getColor();
+        if (!originSquare.isValidToTake(color) || !targetSquare.isValidToPut(color)) {
             return false;
         }
-        if (origin.equals(target)) {
-            console.write("\nYou can't move to the same position.");
-            return false;
-        }
-        if (!originSquare.hasColor(color)) {
-            console.write("\nThis piece is not yours.");
-            return false;
-        }
-        if (targetSquare.hasPiece() && !targetSquare.hasColor(color)) {
-            console.write("\nPosition occupied by one of your pieces.");
-            return false;
-        }
-        boolean isClearpath = false;
-        if (origin.direction(target) != Direction.NONE) {
-            isClearpath = this.isClearpath(origin.path(target));
-        }
-        if (!originSquare.isValidMove(movement, isClearpath)) {
-            console.write("\nInvalid movement.");
-            return false;
-        }
-        return true;
+        boolean isClearpath = this.isClearpath(origin, target);
+        return originSquare.isValidMove(movement, isClearpath);
     }
 
     private Square getSquare(Coordinate coordinate) {
@@ -79,8 +58,12 @@ public class Board {
         return squares[coordinate.getRow()][coordinate.getColumn()];
     }
 
-    private boolean isClearpath(Coordinate[] path) {
-        assert path != null && path.length > 1;
+    private boolean isClearpath(Coordinate origin, Coordinate target) {
+        assert origin != null && target != null;
+        if (origin.direction(target) == Direction.NONE) {
+            return false;
+        }
+        Coordinate[] path = origin.path(target);
         if (path.length == 2) {
             return true;
         }
