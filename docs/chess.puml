@@ -34,13 +34,22 @@ class Board {
     + isCheckmate():boolean
 }
 
-Board *--> Piece
+Board *--> Square
+Square --> Piece
+
+class Square {
+    + isValidMove(Movement, boolean isClearpath):boolean
+    + hasPiece():boolean
+    + hasPiece(Color):boolean
+    + hasKing():boolean
+}
+
 Board --> Movement
 Piece --> Color
 Piece --> Movement
 
 abstract class Piece {
-    # {abstract} isValidMove(Movement, boolean clearpath):boolean
+    # {abstract} isValidMove(Movement, boolean isClearpath):boolean
 }
 
 Piece <|-- Pawn
