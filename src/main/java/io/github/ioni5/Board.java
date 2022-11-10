@@ -88,22 +88,22 @@ public class Board {
 
     public boolean isEmpty(Coordinate coordinate) {
         assert coordinate != null;
-        return pieces[coordinate.getRow() - 1][coordinate.getColumn() - 1] == null;
+        return pieces[coordinate.getRow()][coordinate.getColumn()] == null;
     }
 
     private Piece get(Coordinate coordinate) {
         assert coordinate != null && !this.isEmpty(coordinate);
-        return pieces[coordinate.getRow() - 1][coordinate.getColumn() - 1];
+        return pieces[coordinate.getRow()][coordinate.getColumn()];
     }
 
     private void set(Coordinate coordinate, Piece piece) {
         assert coordinate != null && piece != null;
-        pieces[coordinate.getRow() - 1][coordinate.getColumn() - 1] = piece;
+        pieces[coordinate.getRow()][coordinate.getColumn()] = piece;
     }
 
     private void remove(Coordinate coordinate) {
         assert coordinate != null;
-        pieces[coordinate.getRow() - 1][coordinate.getColumn() - 1] = null;
+        pieces[coordinate.getRow()][coordinate.getColumn()] = null;
     }
 
     public boolean isCheckmate() {
