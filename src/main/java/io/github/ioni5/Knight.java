@@ -9,9 +9,11 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath) {
-        int horizontalDistance = from.horizontalDistance(to);
-        int verticalDistance = from.verticalDistance(to);
+    public boolean isValidMove(Movement movement, boolean isClearpath) {
+        Coordinate origin = movement.getOrigin();
+        Coordinate target = movement.getTarget();
+        int horizontalDistance = origin.horizontalDistance(target);
+        int verticalDistance = origin.verticalDistance(target);
         return horizontalDistance == 2 && verticalDistance == 1
             || horizontalDistance == 1 && verticalDistance == 2;
     }

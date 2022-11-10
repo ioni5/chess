@@ -17,28 +17,41 @@ class Turn {
 
 Player --> Board
 Player --> Color
+Player --> Movement
+
+Movement --> Coordinate
+Movement --> Color
+
 
 class Player {
     + play():void
 }
 
-Player ..> Coordinate
 
 class Board {
-    + isValidMove(Color, Coordinate, Coordinate):boolean
-    + move(Coordinate, Coordinate):void
-    + isClearpath(Coordinate[]):boolean
+    + isValidMove(Movement):boolean
+    + execute(Movement):void
+    + isCheckmate():boolean
 }
 
-Board ..> Coordinate
-Board ..> Color
-Board *--> "squares[8][8]" Square
+Board *--> Square
 Square --> Piece
+
+class Square {
+    + isValidMove(Movement, boolean isClearpath):boolean
+    + isValidToTake(Color):boolean
+    + isValidToPut(Color):boolean
+    + hasPiece():boolean
+    + hasPiece(Color):boolean
+    + hasKing():boolean
+}
+
+Board --> Movement
 Piece --> Color
-Piece ..> Coordinate
+Piece --> Movement
 
 abstract class Piece {
-    # {abstract} isValidMove(Coordinate, Coordinate, boolean clearpath):boolean
+    # {abstract} isValidMove(Movement, boolean isClearpath):boolean
 }
 
 Piece <|-- Pawn
@@ -54,15 +67,20 @@ class Coordinate {
     + horizontalDistance(Coordinate):int
     + verticalDistance(Coordinate):int
     + direction(Coordinate):Direction
+    + orientation(Coordinate):Orientation
     + path(Coordinate):Coordinate[]
 }
-Coordinate --> Direction
+Coordinate ..> Direction
 enum Direction {
     HORIZONTAL
     VERTICAL
     DIAGONAL
-    INVERSE
     NONE
+}
+Coordinate ..> Orientation
+enum Orientation {
+    POSITIVE
+    NEGATIVE
 }
 
 @enduml
