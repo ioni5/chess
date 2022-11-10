@@ -51,7 +51,7 @@ Piece --> Color
 Piece --> Movement
 
 abstract class Piece {
-    # {abstract} isValidMove(Movement, boolean isClearpath):boolean
+    # {abstract} isValidMove(Coordinate, Coordinate, boolean isClearpath, boolean isClearTarget):boolean
 }
 
 Piece <|-- Pawn

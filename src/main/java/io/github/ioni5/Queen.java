@@ -9,7 +9,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Movement movement, boolean isClearpath) {
+    public boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget) {
         Coordinate origin = movement.getOrigin();
         Coordinate target = movement.getTarget();
         return origin.direction(target) != Direction.NONE && isClearpath;

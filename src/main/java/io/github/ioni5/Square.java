@@ -38,10 +38,10 @@ public class Square {
         return piece.isKing();
     }
 
-    public boolean isValidMove(Movement movement, boolean isClearpath) {
+    public boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget) {
         assert movement != null;
         Console console = new Console();
-        if (!piece.isValidMove(movement, isClearpath)) {
+        if (!piece.isValidMove(movement, isClearpath, isClearTarget)) {
             console.write("\nInvalid movement.");
             return false;
         }
@@ -65,7 +65,7 @@ public class Square {
     public boolean isValidToPut(Color color) {
         assert color != null;
         Console console = new Console();
-        if (this.hasPiece() && !this.hasColor(color)) {
+        if (this.hasPiece() && this.hasColor(color)) {
             console.write("\nPosition occupied by one of your pieces.");
             return false;
         }

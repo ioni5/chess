@@ -9,7 +9,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Movement movement, boolean isClearpath) {
+    public boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget) {
         Coordinate origin = movement.getOrigin();
         Coordinate target = movement.getTarget();
         Direction direction = origin.direction(target);

@@ -60,7 +60,7 @@ public class Coordinate {
         return path;
     }
 
-    private Orientation orientation(Coordinate coordinate) {
+    public Orientation orientation(Coordinate coordinate) {
         assert coordinate != null;
         if (row >= coordinate.row && column >= coordinate.column) {
             return Orientation.NEGATIVE;

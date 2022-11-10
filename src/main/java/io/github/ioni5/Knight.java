@@ -9,7 +9,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Movement movement, boolean isClearpath) {
+    public boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget) {
         Coordinate origin = movement.getOrigin();
         Coordinate target = movement.getTarget();
         int horizontalDistance = origin.horizontalDistance(target);

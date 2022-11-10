@@ -49,8 +49,9 @@ public class Board {
         if (!originSquare.isValidToTake(color) || !targetSquare.isValidToPut(color)) {
             return false;
         }
+        boolean isClearTarget = !targetSquare.hasPiece();
         boolean isClearpath = this.isClearpath(origin, target);
-        return originSquare.isValidMove(movement, isClearpath);
+        return originSquare.isValidMove(movement, isClearpath, isClearTarget);
     }
 
     private Square getSquare(Coordinate coordinate) {
