@@ -62,7 +62,8 @@ public class Board {
         if (from.direction(to) != Direction.NONE) {
             isClearpath = this.isClearpath(from.path(to));
         }
-        if (!piece.isValidMove(from, to, isClearpath)) {
+        boolean isClearTarget = this.isEmpty(to);
+        if (!piece.isValidMove(from, to, isClearpath, isClearTarget)) {
             console.write("\nInvalid movement.");
             return false;
         }

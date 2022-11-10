@@ -9,7 +9,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath) {
+    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath, boolean isClearTarget) {
         return from.direction(to) != Direction.NONE && isClearpath;
     }
 

@@ -38,7 +38,7 @@ Piece --> Color
 Piece ..> Coordinate
 
 abstract class Piece {
-    # {abstract} isValidMove(Coordinate, Coordinate, boolean clearpath):boolean
+    # {abstract} isValidMove(Coordinate, Coordinate, boolean isClearpath, boolean isClearTarget):boolean
 }
 
 Piece <|-- Pawn

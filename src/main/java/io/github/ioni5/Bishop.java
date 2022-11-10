@@ -9,7 +9,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath) {
+    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath, boolean isClearTarget) {
         Direction direction = from.direction(to);
         return direction == Direction.DIAGONAL && isClearpath;
     }

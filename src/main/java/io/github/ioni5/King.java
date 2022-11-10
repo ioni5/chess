@@ -9,7 +9,7 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath) {
+    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath, boolean isClearTarget) {
         Direction direction = from.direction(to);
         int verticalDistance = from.verticalDistance(to);
         int horizontalDistance = from.horizontalDistance(to);

@@ -13,13 +13,15 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath) {
+    public boolean isValidMove(Coordinate from, Coordinate to, boolean isClearpath, boolean isClearTarget) {
         Direction direction = from.direction(to);
         int distance = from.verticalDistance(to);
         int initRow = color == Color.BLACK ? INIT_BLACK_ROW : INIT_WHITE_ROW;
-        return direction == Direction.VERTICAL && (distance == 1 && isClearpath 
-            || distance == 2 && from.getRow() == initRow && isClearpath)
-            || direction == Direction.DIAGONAL && distance == 1;
+        return (from.orientation(to) == Orientation.POSITIVE && color == Color.BLACK
+            || from.orientation(to) == Orientation.NEGATIVE && color == Color.WHITE)
+            && direction == Direction.VERTICAL && isClearTarget && (distance == 1 
+            || distance == 2 && from.getRow() == initRow)
+            || direction == Direction.DIAGONAL && distance == 1 && !isClearTarget;
     }
 
     @Override
