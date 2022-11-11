@@ -5,6 +5,8 @@ public class Board {
     public static final int DIMENSION = 8;
 
     private Square[][] squares;
+
+    private boolean isCheckmate;
     
     public Board() {
         squares = new Square[DIMENSION][DIMENSION];
@@ -75,27 +77,17 @@ public class Board {
 
     public void execute(Movement movement) {
         assert movement != null;
-        Coordinate origin = movement.getOrigin();
-        Coordinate target = movement.getTarget();
-        Square originSquare = this.getSquare(origin);
-        Square targetSquare = this.getSquare(target);
-        Piece piece = originSquare.get();
+        Square originSquare = this.getSquare(movement.getOrigin());
+        Square targetSquare = this.getSquare(movement.getTarget());
+        if (targetSquare.hasPiece() && targetSquare.hasKing()) {
+            isCheckmate = true;
+        }
+        targetSquare.set(originSquare.get());
         originSquare.remove();
-        targetSquare.set(piece);
     }
 
     public boolean isCheckmate() {
-        int count = 0;
-        Square square;
-        for (int i  = 0; i < DIMENSION; i++) {
-            for (int j = 0; j < DIMENSION; j++) {
-                square = this.getSquare(new Coordinate(i, j));
-                if (square.hasPiece() && square.hasKing()) {
-                    count++;
-                }
-            }
-        }
-        return count == 1;
+        return isCheckmate;
     }
 
 }
