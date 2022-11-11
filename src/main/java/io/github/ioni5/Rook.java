@@ -9,12 +9,9 @@ public class Rook extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget) {
-        Coordinate origin = movement.getOrigin();
-        Coordinate target = movement.getTarget();
-        Direction direction = origin.direction(target);
-        return (direction == Direction.HORIZONTAL || direction == Direction.VERTICAL) 
-            && isClearpath;
+    public boolean isValidToMoveBetween(AbstractPath path) {
+        return (path.isDirection(Direction.HORIZONTAL) || path.isDirection(Direction.VERTICAL)) 
+            && path.isClearpath();
     }
 
     @Override

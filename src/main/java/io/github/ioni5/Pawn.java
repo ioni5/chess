@@ -13,17 +13,33 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget) {
-        Coordinate origin = movement.getOrigin();
-        Coordinate target = movement.getTarget();
-        Direction direction = origin.direction(target);
-        int distance = origin.verticalDistance(target);
+    public boolean isValidToMoveBetween(AbstractPath path) {
+        return this.isValidOrientation(path) && (
+            this.isValidVerticalMove(path) || this.isValidDiagonalMove(path)
+        );
+    }
+
+    private boolean isValidOrientation(AbstractPath path) {
+        return this.isColor(Color.BLACK) && path.isOrientation(Orientation.POSITIVE)
+            || this.isColor(Color.WHITE) && path.isOrientation(Orientation.NEGATIVE);
+    }
+
+    private boolean isValidDiagonalMove(AbstractPath path) {
+        return (path.isDirection(Direction.DIAGONAL) || path.isDirection(Direction.INVERSE))
+            && path.isVerticalDistance(1) 
+            && !path.isClearTarget();
+    }
+
+    private boolean isValidVerticalMove(AbstractPath path) {
+        return path.isDirection(Direction.VERTICAL) && path.isClearTarget() && (
+            path.isVerticalDistance(2) && this.isFirstMovement(path)
+            || path.isVerticalDistance(1)
+        );
+    }
+
+    private boolean isFirstMovement(AbstractPath path) {
         int initRow = color == Color.BLACK ? INIT_BLACK_ROW : INIT_WHITE_ROW;
-        return (origin.orientation(target) == Orientation.POSITIVE && color == Color.BLACK
-            || origin.orientation(target) == Orientation.NEGATIVE && color == Color.WHITE) 
-            && direction == Direction.VERTICAL && isClearTarget && (distance == 1 
-            || distance == 2 && origin.getRow() == initRow)
-            || direction == Direction.DIAGONAL && distance == 1 && !isClearTarget;
+        return path.get(0).getRow() == initRow;
     }
 
     @Override

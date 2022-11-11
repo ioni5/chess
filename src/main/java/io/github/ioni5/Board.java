@@ -41,39 +41,36 @@ public class Board {
 
     public boolean isValid(Movement movement) {
         assert movement != null;
-        Coordinate origin = movement.getOrigin();
-        Coordinate target = movement.getTarget();
-        Square originSquare = this.getSquare(origin);
-        Square targetSquare = this.getSquare(target);
+        Square originSquare = this.getSquare(movement.getOrigin());
+        Square targetSquare = this.getSquare(movement.getTarget());
         Color color = movement.getColor();
-        if (!originSquare.isValidToTake(color) || !targetSquare.isValidToPut(color)) {
+        if (!originSquare.isValidToTake(color) 
+            || !targetSquare.isValidToPut(color)) {
             return false;
         }
-        boolean isClearTarget = !targetSquare.hasPiece();
-        boolean isClearpath = this.isClearpath(origin, target);
-        return originSquare.isValidMove(movement, isClearpath, isClearTarget);
+        AbstractPath path = this.createPath(movement);
+        return originSquare.isValidToMovePieceBetween(path);
+    }
+
+    private AbstractPath createPath(Movement movement) {
+        assert movement != null;
+        AbstractPath path;
+        if (movement.isDirection(Direction.NONE)) {
+            path = new IndeterminatePath(movement);
+        } else {
+            path = new Path(movement);
+        }
+        boolean[] values = new boolean[path.size()];
+        for (int i = 0; i < path.size(); i++) {
+            values[i] = this.getSquare(path.get(i)).hasPiece();
+        }
+        path.setValues(values);
+        return path;
     }
 
     private Square getSquare(Coordinate coordinate) {
         assert coordinate != null;
         return squares[coordinate.getRow()][coordinate.getColumn()];
-    }
-
-    private boolean isClearpath(Coordinate origin, Coordinate target) {
-        assert origin != null && target != null;
-        if (origin.direction(target) == Direction.NONE) {
-            return false;
-        }
-        Coordinate[] path = origin.path(target);
-        if (path.length == 2) {
-            return true;
-        }
-        for (int i = 1; i < path.length - 1; i++) {
-            if (this.getSquare(path[i]).hasPiece()) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void execute(Movement movement) {
