@@ -36,9 +36,10 @@ class Board {
 
 Board *--> Square
 Square --> Piece
+Square ..> AbstractPath
 
 class Square {
-    + isValidMove(Movement, boolean isClearpath):boolean
+    + isValidToMovePieceBetween(AbstractPath):boolean
     + isValidToTake(Color):boolean
     + isValidToPut(Color):boolean
     + hasPiece():boolean
@@ -47,11 +48,20 @@ class Square {
 }
 
 Board --> Movement
+Board --> AbstractPath
 Piece --> Color
-Piece --> Movement
+Piece ..> AbstractPath
+
+abstract class AbstractPath {
+    + isClearpath():boolean
+    + {abstract} isClearTarget():boolean
+}
+AbstractPath <|-- Path
+AbstractPath <|-- IndeterminatePath
+AbstractPath --> Movement
 
 abstract class Piece {
-    # {abstract} isValidMove(Coordinate, Coordinate, boolean isClearpath, boolean isClearTarget):boolean
+    # {abstract} isValidToMoveBetween(AbstractPath):boolean
 }
 
 Piece <|-- Pawn
@@ -68,15 +78,17 @@ class Coordinate {
     + verticalDistance(Coordinate):int
     + direction(Coordinate):Direction
     + orientation(Coordinate):Orientation
-    + path(Coordinate):Coordinate[]
+    + displaced(Direction, Orientation):Coordinate
 }
 Coordinate ..> Direction
 enum Direction {
     HORIZONTAL
     VERTICAL
     DIAGONAL
+    INVERSE
     NONE
 }
+
 Coordinate ..> Orientation
 enum Orientation {
     POSITIVE
