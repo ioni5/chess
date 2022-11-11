@@ -61,7 +61,12 @@ AbstractPath <|-- IndeterminatePath
 AbstractPath --> Movement
 
 abstract class Piece {
+    + Piece(Color)
     # {abstract} isValidToMoveBetween(AbstractPath):boolean
+}
+
+class Pawn {
+    + Pawn(Color, Coordinate)
 }
 
 Piece <|-- Pawn
