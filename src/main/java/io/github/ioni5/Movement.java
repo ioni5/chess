@@ -42,4 +42,24 @@ public class Movement {
     public Color getColor() {
         return color;
     }
+
+    public boolean isDirection(Direction direction) {
+        return origin.direction(target) == direction;
+    }
+
+    public Direction direction() {
+        return origin.direction(target);
+    }
+
+    public int verticalDistance() {
+        return origin.verticalDistance(target);
+    }
+
+    public int horizontalDistance() {
+        return origin.horizontalDistance(target);
+    }
+
+    public Orientation orientation() {
+        return origin.orientation(target);
+    }
 }

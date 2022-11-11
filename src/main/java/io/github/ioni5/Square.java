@@ -38,10 +38,10 @@ public class Square {
         return piece.isKing();
     }
 
-    public boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget) {
-        assert movement != null;
+    public boolean isValidToMovePieceBetween(AbstractPath path) {
+        assert path != null;
         Console console = new Console();
-        if (!piece.isValidMove(movement, isClearpath, isClearTarget)) {
+        if (!piece.isValidToMoveBetween(path)) {
             console.write("\nInvalid movement.");
             return false;
         }

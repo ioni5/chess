@@ -9,15 +9,12 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean isValidMove(Movement movement, boolean isClearpath, boolean isClearTarget) {
-        Coordinate origin = movement.getOrigin();
-        Coordinate target = movement.getTarget();
-        Direction direction = origin.direction(target);
-        int verticalDistance = origin.verticalDistance(target);
-        int horizontalDistance = origin.horizontalDistance(target);
-        return direction == Direction.VERTICAL && verticalDistance == 1 
-            || direction == Direction.HORIZONTAL && horizontalDistance == 1 
-            || direction == Direction.DIAGONAL && verticalDistance == 1;
+    public boolean isValidToMoveBetween(AbstractPath path) {
+        return path.isVerticalDistance(1) 
+            && (path.isDirection(Direction.VERTICAL) 
+                || path.isDirection(Direction.DIAGONAL) 
+                || path.isDirection(Direction.INVERSE))
+            || path.isDirection(Direction.HORIZONTAL) && path.isHorizontalDistance(1);
     }
 
     @Override
