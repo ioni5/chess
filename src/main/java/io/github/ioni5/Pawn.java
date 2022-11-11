@@ -4,12 +4,11 @@ public class Pawn extends Piece {
 
     private static final char[] SYMBOLS = {'\u2659', '\u265F'};
 
-    private static final int INIT_WHITE_ROW = 6;
+    private Coordinate initialCoordinate;
 
-    private static final int INIT_BLACK_ROW = 1;
-
-    public Pawn(Color color) {
+    public Pawn(Color color, Coordinate initialCoordinate) {
         super(color, SYMBOLS);
+        this.initialCoordinate = initialCoordinate;
     }
 
     @Override
@@ -18,11 +17,11 @@ public class Pawn extends Piece {
         Coordinate target = movement.getTarget();
         Direction direction = origin.direction(target);
         int distance = origin.verticalDistance(target);
-        int initRow = color == Color.BLACK ? INIT_BLACK_ROW : INIT_WHITE_ROW;
+        
         return (origin.orientation(target) == Orientation.POSITIVE && color == Color.BLACK
             || origin.orientation(target) == Orientation.NEGATIVE && color == Color.WHITE) 
             && direction == Direction.VERTICAL && isClearTarget && (distance == 1 
-            || distance == 2 && origin.getRow() == initRow)
+            || distance == 2 && origin.equals(initialCoordinate))
             || direction == Direction.DIAGONAL && distance == 1 && !isClearTarget;
     }
 
