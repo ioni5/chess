@@ -25,7 +25,7 @@ public class Board {
             squares[0 + i * 7][3].set(new Queen(color));
             squares[0 + i * 7][4].set(new King(color));
             for (int j = 0; j < DIMENSION; j++) {
-                squares[1 + i * 5][j].set(new Pawn(color));
+                squares[1 + i * 5][j].set(new Pawn(color, new Coordinate(1 + i * 5, j)));
             }
         }
     }

@@ -4,19 +4,17 @@ public class Pawn extends Piece {
 
     private static final char[] SYMBOLS = {'\u2659', '\u265F'};
 
-    private static final int INIT_WHITE_ROW = 6;
+    private Coordinate initialCoordinate;
 
-    private static final int INIT_BLACK_ROW = 1;
-
-    public Pawn(Color color) {
+    public Pawn(Color color, Coordinate initialCoordinate) {
         super(color, SYMBOLS);
+        this.initialCoordinate = initialCoordinate;
     }
 
     @Override
     public boolean isValidToMoveBetween(AbstractPath path) {
-        return this.isValidOrientation(path) && (
-            this.isValidVerticalMove(path) || this.isValidDiagonalMove(path)
-        );
+        return this.isValidOrientation(path) 
+            && (this.isValidVerticalMove(path) || this.isValidDiagonalMove(path));
     }
 
     private boolean isValidOrientation(AbstractPath path) {
@@ -31,15 +29,13 @@ public class Pawn extends Piece {
     }
 
     private boolean isValidVerticalMove(AbstractPath path) {
-        return path.isDirection(Direction.VERTICAL) && path.isClearTarget() && (
-            path.isVerticalDistance(2) && this.isFirstMovement(path)
-            || path.isVerticalDistance(1)
-        );
+        return path.isDirection(Direction.VERTICAL) && path.isClearTarget() 
+            && (path.isVerticalDistance(2) && this.isFirstMovement(path)
+            || path.isVerticalDistance(1));
     }
 
     private boolean isFirstMovement(AbstractPath path) {
-        int initRow = color == Color.BLACK ? INIT_BLACK_ROW : INIT_WHITE_ROW;
-        return path.get(0).getRow() == initRow;
+        return path.get(0).equals(initialCoordinate);
     }
 
     @Override
